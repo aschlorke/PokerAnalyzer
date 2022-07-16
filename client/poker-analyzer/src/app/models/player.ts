@@ -2,12 +2,11 @@ import { PlayingCard } from "./playing-card";
 
 export class Player {
     public readonly name: string;
-    public readonly hand: PlayingCard[];
+    public readonly cards: PlayingCard[];
 
-    public constructor (name: string, hand: PlayingCard[])
-    {
+    public constructor(name: string, cards: PlayingCard[]) {
         this.name = name;
-        this.hand = hand;
+        this.cards = cards;
     }
 }
 

@@ -3,7 +3,8 @@
     <div class="player-list">
         <div class="player" *ngFor="let player of pokerGame.players">
             <p class="player-name">{{player.name}}</p>
-            <app-playing-card-list [playingCards]="player.hand"></app-playing-card-list>
+            <app-playing-card-list [playingCards]="player.cards"></app-playing-card-list>
         </div>
     </div>
+    <app-poker-game-results [results]="pokerGame.results"></app-poker-game-results>
 </ng-container>

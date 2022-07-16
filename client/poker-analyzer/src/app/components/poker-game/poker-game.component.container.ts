@@ -4,8 +4,8 @@ import { PokerGame } from 'src/app/models/poker-game';
 import { PokerAnalyzerService } from 'src/app/services/poker-analyzer.service';
 
 @Component({
-    selector: 'app-poker-game',
-    template: `
+  selector: 'app-poker-game',
+  template: `
         <app-poker-game-ui
             [pokerGame]="pokerGame$ | async"
         >    

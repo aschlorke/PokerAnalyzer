@@ -12,13 +12,13 @@ namespace PokerAnalyzer.Data.Models
         public List<Player> Players { get; private set; }
 
         [JsonProperty]
-        public string Winner { get; private set; }
+        public PokerGameResults Results { get; private set; }
 
-        public PokerGame(int id, List<Player> players, string winner)
+        public PokerGame(int id, List<Player> players, PokerGameResults results)
         {
             Id = id;
             Players = players;
-            Winner = winner;
+            Results = results;
         }
     }
 }
