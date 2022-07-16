@@ -30,18 +30,18 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+.angular
 .sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
+connect.lock
+coverage
+libpeerconnection.log
 testem.log
-/typings
+typings
+bin
+obj
+dist
 
 # System files
 .DS_Store
 Thumbs.db
 
-# temp directories
-bin
-obj
