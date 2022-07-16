@@ -1,8 +1,8 @@
 import { Suit } from "./enums/suit.enum";
 
-export class Card {
-    private readonly value: number;
-    private readonly suit: Suit;
+export class PlayingCard {
+    public readonly value: number;
+    public readonly suit: Suit;
 
     public constructor(value: number, suit: Suit) {
         this.value = value;

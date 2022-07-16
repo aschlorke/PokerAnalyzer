@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { PlayingCardListModule } from './card-list/playing-card-list.module';
+import { PlayingCardModule } from './playing-card/playing-card.module';
 
-import { CardComponent } from './card/card.component';
-import { CardListComponent } from './card-list/card-list.component';
-import { PokerGameComponentUI } from './poker-game/poker-game.component.presentation';
+import { PokerGameModule } from './poker-game/poker-game.module';
 
 @NgModule({
   declarations: [
-    CardComponent,
-    CardListComponent,
-    PokerGameComponentUI
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    PlayingCardModule,
+    PlayingCardListModule,
+    PokerGameModule,
   ],
   exports: [
-    CardComponent,
-    CardListComponent
+    PlayingCardModule,
+    PlayingCardListModule,
+    PokerGameModule,
   ]
 })
 export class ComponentsModule { }

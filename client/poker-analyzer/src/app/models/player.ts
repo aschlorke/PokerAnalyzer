@@ -1,10 +1,10 @@
-import { Card } from "./card";
+import { PlayingCard } from "./playing-card";
 
 export class Player {
-    private readonly name: string;
-    private readonly hand: Card[];
+    public readonly name: string;
+    public readonly hand: PlayingCard[];
 
-    public constructor (name: string, hand: Card[])
+    public constructor (name: string, hand: PlayingCard[])
     {
         this.name = name;
         this.hand = hand;
