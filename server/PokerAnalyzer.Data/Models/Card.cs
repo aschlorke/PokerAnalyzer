@@ -2,17 +2,20 @@ using Newtonsoft.Json;
 
 namespace PokerAnalyzer.Data.Models
 {
-    [JsonObject (MemberSerialization.OptIn)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Card
     {
         [JsonProperty]
-        public int Value { get; private set; }
+        public string Rank { get; private set; }
 
         [JsonProperty]
         public Suit Suit { get; private set; }
 
-        public Card (int value, Suit suit)
+        public int Value { get; private set; }
+
+        public Card(string rank, Suit suit, int value)
         {
+            Rank = rank;
             Value = value;
             Suit = suit;
         }

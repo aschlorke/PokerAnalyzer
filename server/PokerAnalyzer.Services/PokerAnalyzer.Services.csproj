@@ -2,6 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PokerAnalyzer.Data\PokerAnalyzer.Data.csproj" />
+    <ProjectReference Include="..\PokerAnalyzer.Common\PokerAnalyzer.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
   </ItemGroup>
 
   <PropertyGroup>

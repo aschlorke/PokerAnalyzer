@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace PokerAnalyzer.Data.Models
 {
-    [JsonObject (MemberSerialization.OptIn)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Player
     {
         [JsonProperty]
@@ -11,7 +11,7 @@ namespace PokerAnalyzer.Data.Models
         [JsonProperty]
         public List<Card> Hand { get; private set; }
 
-        public Player (string name, List<Card> hand)
+        public Player(string name, List<Card> hand)
         {
             Name = name;
             Hand = hand;
