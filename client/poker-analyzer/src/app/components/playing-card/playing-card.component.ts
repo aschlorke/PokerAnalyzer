@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Suit } from 'src/app/models/enums/suit.enum';
 import { PlayingCard } from 'src/app/models/playing-card';
 
 @Component({
@@ -10,10 +11,22 @@ export class PlayingCardComponent implements OnInit {
 
   @Input() public playingCard: PlayingCard = null;
 
+
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log("ngOnInit Card.ts: " + this.playingCard.value + this.playingCard.suit);
+    // console.log("ngOnInit Card.ts: " + this.playingCard.value + this.playingCard.suit);
   }
 
+  getImage(): string {
+    // TODO: Better way to get the name from the enum?
+    const suit = this.playingCard.suit;
+    const suitName: string =
+      suit === Suit.Clubs ? 'Clubs'
+        : suit === Suit.Diamonds ? 'Diamonds'
+          : suit === Suit.Hearts ? 'Hearts'
+            : 'Spades';
+    return `/assets/cards/${suitName}/${this.playingCard.rank.toLocaleLowerCase()}.png`;
+  }
 }

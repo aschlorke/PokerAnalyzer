@@ -1,7 +1,9 @@
 <ng-container *ngIf="!!pokerGame">
-    <p>{{pokerGame.id}}</p>
-    <ng-container *ngFor="let player of pokerGame.players">
-        <p>{{player.name}}</p>
-        <app-playing-card-list [playingCards]="player.hand"></app-playing-card-list>
-    </ng-container>
+    <p>Game Id: {{pokerGame.id}}</p>
+    <div class="player-list">
+        <div class="player" *ngFor="let player of pokerGame.players">
+            <p class="player-name">{{player.name}}</p>
+            <app-playing-card-list [playingCards]="player.hand"></app-playing-card-list>
+        </div>
+    </div>
 </ng-container>

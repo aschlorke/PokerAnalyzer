@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { PlayingCardListModule } from './card-list/playing-card-list.module';
+import { PlayingCardListModule } from './playing-card-list/playing-card-list.module';
 import { PlayingCardModule } from './playing-card/playing-card.module';
 
 import { PokerGameModule } from './poker-game/poker-game.module';

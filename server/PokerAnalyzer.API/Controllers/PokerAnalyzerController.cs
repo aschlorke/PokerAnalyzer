@@ -18,7 +18,7 @@ public class PokerAnalyzerController : ControllerBase
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpGet(Name = "GetNewGame")]
+    [HttpGet()]
     public IActionResult GetNewGame()
     {
         var game = _service.GetNewGame();
@@ -29,8 +29,7 @@ public class PokerAnalyzerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Route("/{id}")]
-    [HttpGet(Name = "GetExistingGame")]
+    [HttpGet("{id}")]
     public IActionResult GetExistingGame(int id)
     {
         if (id < 0) return BadRequest("Id of game must be greater than 0");

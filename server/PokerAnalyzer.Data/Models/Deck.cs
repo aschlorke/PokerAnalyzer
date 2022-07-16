@@ -18,7 +18,7 @@ namespace PokerAnalyzer.Data.Models
             {
                 foreach (var valueRank in Constants.ValuesToRanks)
                 {
-                    cards.Add(new(valueRank.Value, suit, valueRank.Key));
+                    cards.Add(new(valueRank.Value, valueRank.Key, suit));
                 }
             }
 

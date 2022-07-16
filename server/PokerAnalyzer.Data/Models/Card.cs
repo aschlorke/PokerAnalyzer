@@ -9,11 +9,13 @@ namespace PokerAnalyzer.Data.Models
         public string Rank { get; private set; }
 
         [JsonProperty]
-        public Suit Suit { get; private set; }
-
         public int Value { get; private set; }
 
-        public Card(string rank, Suit suit, int value)
+        [JsonProperty]
+        public Suit Suit { get; private set; }
+
+
+        public Card(string rank, int value, Suit suit)
         {
             Rank = rank;
             Value = value;

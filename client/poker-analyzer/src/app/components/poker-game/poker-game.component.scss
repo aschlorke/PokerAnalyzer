@@ -1,0 +1,10 @@
+.player {
+    display: flex;
+    align-items: center;
+
+    .player-name {
+        width: 10%;
+        display: flex;
+        justify-content: center;
+    }
+}
