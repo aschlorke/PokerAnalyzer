@@ -35,7 +35,7 @@ public class PokerAnalyzerService : IPokerAnalyzerService
             fullHouse,
             fourOfAKind,
             straightFlush
-        }.OrderBy (r => r.Value).ToList ();
+        }.OrderByDescending (r => r.Value).ToList ();
     }
 
     public PokerGame? GetNewGame (int numberOfPlayers) => CreateGame (numberOfPlayers);
