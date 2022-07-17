@@ -16,7 +16,6 @@ export class PlayingCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // console.log("ngOnInit Card.ts: " + this.playingCard.value + this.playingCard.suit);
   }
 
   getImage(): string {
