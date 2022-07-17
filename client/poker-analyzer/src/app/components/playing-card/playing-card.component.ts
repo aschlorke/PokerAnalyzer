@@ -20,7 +20,6 @@ export class PlayingCardComponent implements OnInit {
   }
 
   getImage(): string {
-    // TODO: Better way to get the name from the enum?
     const suit = this.playingCard.suit;
     const suitName: string =
       suit === Suit.Clubs ? 'Clubs'

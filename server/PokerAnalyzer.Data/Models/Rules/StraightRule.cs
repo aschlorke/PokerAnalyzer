@@ -7,7 +7,6 @@ namespace PokerAnalyzer.Data.Models.Rules
         public override string Name => "Straight";
         public override int Value => 5;
 
-        // TODO
         public override bool HasHand(List<Card> cards)
         {
             // cards should be sorted already

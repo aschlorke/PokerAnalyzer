@@ -14,11 +14,11 @@ export class PokerHomeComponentUI implements OnInit {
   _currentGame: PokerGame = null;
   @Input() set currentGame(val: PokerGame) {
     this._currentGame = val;
-    if(val) {
+    if (val) {
       this.selectedGameId = val.id;
     }
   };
-  get currentGame(): PokerGame  {
+  get currentGame(): PokerGame {
     return this._currentGame;
   };
   @Output() onStartNewGame = new EventEmitter<void>();
@@ -27,7 +27,7 @@ export class PokerHomeComponentUI implements OnInit {
   @Output() onUpdateNumPlayers: EventEmitter<number> = new EventEmitter();
 
   public selectedGameId: number;
-  public playerOptions: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+  public playerOptions: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   constructor() { }
 
@@ -43,7 +43,7 @@ export class PokerHomeComponentUI implements OnInit {
   }
 
   deleteGame(): void {
-    if(this.currentGame) {
+    if (this.currentGame) {
       this.onDeleteGame.emit(this.currentGame.id);
     }
   }
