@@ -1,1 +1,31 @@
-<app-poker-game></app-poker-game>
+<ng-container>
+    <div class="header">
+        <button (click)="startNewGame()">Start New Game</button>
+        <div class="title">Poker Analyzer</div>
+        <div class="game-options">
+            <div class="game-selection">
+                <div class="select-title">Selecting existing game: </div>
+                <select class="select" [ngModel]="selectedGameId" (ngModelChange)="selectExistingGame($event)">
+                    <option value="-1">
+                        Select a game
+                    </option>
+                    <option *ngFor="let id of existingGameIds" [value]="id">
+                        {{id}}
+                    </option>
+                </select>
+            </div>
+            <div class="player-selection">
+                <div class="select-title">Select number of players: </div> 
+                <select class="select" (change)="updateNumPlayers($event)">
+                    <option *ngFor="let num of playerOptions" [value]="num">
+                        {{num}}
+                    </option>
+                </select>    
+            </div>    
+        </div>
+    </div>
+    <ng-container *ngIf="!!currentGame">
+        <app-poker-game [currentGame]="currentGame"></app-poker-game>
+        <button class="delete" (click)="deleteGame()">Delete game</button>    
+    </ng-container>
+</ng-container>

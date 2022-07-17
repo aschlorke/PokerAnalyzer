@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { PokerGameModule } from '../poker-game/poker-game.module';
+import { FormsModule } from '@angular/forms';
 
-import { PokerHomeComponent } from './poker-home.component';
+import { PokerGameModule } from '../poker-game/poker-game.module';
+import { PokerHomeComponent } from './poker-home.component.container';
+import { PokerHomeComponentUI } from './poker-home.component.presentation';
 
 @NgModule({
   declarations: [
     PokerHomeComponent,
+    PokerHomeComponentUI
   ],
   imports: [
     BrowserModule,
-    PokerGameModule
+    PokerGameModule,
+    FormsModule
   ],
   exports: [
     PokerHomeComponent

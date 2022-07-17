@@ -10,8 +10,4 @@ export class PlayingCard {
         this.value = value;
         this.suit = suit;
     }
-
-    public toString(): string {
-        return `${this.rank}-${this.suit}`;
-    }
 }

@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .game-options {
+        display: flex;
+        flex-direction: column;
+        .game-selection,
+        .player-selection {
+            display: flex;
+            .select-title {
+                width: 60%;
+            }
+
+            .select {
+                width: 35%;
+            }
+        }    
+    }
+}
