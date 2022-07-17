@@ -13,7 +13,7 @@ export class PokerAnalyzerService {
 
   constructor(private _http: HttpClient) { }
 
-  getNewPokerGame(): Observable<PokerGame> {
-    return this._http.get<PokerGame>(environment.apiEndpoint + controllerName);
+  getNewPokerGame(): Observable<any> {
+    return this._http.post<number>(`${environment.apiEndpoint}/${controllerName}/GetNewGame`, { numberOfPlayers: 3 });
   }
 }

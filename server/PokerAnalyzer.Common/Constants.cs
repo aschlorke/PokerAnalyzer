@@ -2,7 +2,7 @@
 public static class Constants
 {
     public static readonly int HandSize = 5;
-    public static readonly List<string> PlayerNames = new() { "Aaron", "Natalie", "Alaina" };
+    public static readonly List<string> PlayerNames = new() { "Aaron", "Natalie", "Alaina", "Charlie", "Arthur", "Craig", "Allison", "Nick", "Emily", "AJ" };
 
     public static readonly Dictionary<int, string> ValuesToRanks = new() {
       { 2, "2" },

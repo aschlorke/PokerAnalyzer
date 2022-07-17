@@ -16,6 +16,7 @@ namespace PokerAnalyzer.Data.Models.Rules
             for (int i = 1; i < cardVals.Count(); i++)
             {
                 if (cardVals[i] != lastVal + 1) return false;
+                lastVal = cardVals[i];
             }
 
             return true;

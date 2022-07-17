@@ -13,12 +13,6 @@ public class PokerAnalyzerService : IPokerAnalyzerService
     private static int id = 0;
     private Deck deck = new();
 
-    public PokerGame GetNewGame() => CreateGame();
-
-    public PokerGame GetExistingGameById(int id) => Games[id];
-
-    public bool DeleteGameById(int id) => Games.Remove(id);
-
     public PokerAnalyzerService()
     {
         var highCard = new HighCardRule();
@@ -44,73 +38,55 @@ public class PokerAnalyzerService : IPokerAnalyzerService
         }.OrderByDescending(r => r.Value).ToList();
     }
 
-    // private PokerGame CreateGame()
-    // {
-    // deck.ResetDeck();
-    // Dictionary<string, List<Card>> players = new();
+    public PokerGame? GetNewGame(int numberOfPlayers) => CreateGame(numberOfPlayers);
 
-    // // deal cards one by one to each player
-    // for (int i = 0; i < Constants.HandSize; i++)
-    // {
-    //     foreach (var player in Constants.PlayerNames)
-    //     {
-    //         var card = deck.DrawCard();
-    //         if (players.ContainsKey(player))
-    //         {
-    //             players[player].Add(card);
-    //         }
-    //         else
-    //         {
-    //             players.Add(player, new() { card });
-    //         }
-    //     }
-    // }
+    public PokerGame GetExistingGameById(int id) => Games[id];
 
-    // var playersList = players.Select(p => new Player(p.Key, p.Value.OrderBy(c => c.Value).ToList())).ToList();
-    // var results = DetermineResults(playersList);
+    public bool DeleteGameById(int id) => Games.Remove(id);
 
-    // PokerGame game = new (id, playersList, results);
-    // Games.Add(id, game);
+    public List<int> GetExistingGameIds() => Games.Keys.ToList();
 
-    // id++;
-
-    // return game;
-
-    // }
-
-    private PokerGame CreateGame()
+    private PokerGame? CreateGame(int numberOfPlayers)
     {
-        List<Player> players = new();
-        List<List<Card>> testHands = new() {
-            new() {
-                new("2", 2, Suit.Diamonds),
-                new("2", 2, Suit.Clubs),
-                new("2", 2, Suit.Hearts),
-                new("3", 3, Suit.Diamonds),
-                new("4", 4, Suit.Clubs),
-            },
-            new() {
-                new("2", 2, Suit.Diamonds),
-                new("2", 2, Suit.Clubs),
-                new("2", 2, Suit.Hearts),
-                new("3", 3, Suit.Diamonds),
-                new("5", 5, Suit.Clubs),
-            },
-            new() {
-                new("2", 2, Suit.Diamonds),
-                new("2", 2, Suit.Clubs),
-                new("2", 2, Suit.Hearts),
-                new("3", 3, Suit.Diamonds),
-                new("6", 6, Suit.Clubs),
-            },
-        };
+        deck.ResetDeck();
+        Dictionary<string, List<Card>> players = new();
 
-        for (int i = 0; i < Constants.PlayerNames.Count; i++)
+        PokerGame? game = null;
+        try
         {
-            players.Add(new Player(Constants.PlayerNames[i], testHands[i]));
+            // deal cards one by one to each player
+            for (int i = 0; i < Constants.HandSize; i++)
+            {
+                for (int j = 0; j < numberOfPlayers; j++)
+                {
+                    var player = Constants.PlayerNames[j];
+                    var card = deck.DrawCard();
+                    if (players.ContainsKey(player))
+                    {
+                        players[player].Add(card);
+                    }
+                    else
+                    {
+                        players.Add(player, new() { card });
+                    }
+                }
+            }
+
+            var playersList = players.Select(p => new Player(p.Key, p.Value.OrderBy(c => c.Value).ToList())).ToList();
+            var results = DetermineResults(playersList);
+
+            game = new(id, playersList, results);
+            Games.Add(id, game);
+
+            id++;
+        }
+        catch (ArgumentOutOfRangeException _)
+        {
+            game = null;
         }
 
-        return new PokerGame(id, players, DetermineResults(players));
+        return game;
+
     }
 
 
@@ -142,7 +118,7 @@ public class PokerAnalyzerService : IPokerAnalyzerService
         }
         else
         {
-            return new("Draw", "Both hands were the same");
+            return new("Draw", "There was a draw");
         }
 
     }

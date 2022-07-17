@@ -5,6 +5,7 @@ import { PlayingCardListModule } from './playing-card-list/playing-card-list.mod
 import { PlayingCardModule } from './playing-card/playing-card.module';
 import { PokerGameModule } from './poker-game/poker-game.module';
 import { PokerGameResultsModule } from './poker-game-results/poker-game-results.module';
+import { PokerHomeModule } from './poker-home/poker-home.module';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,14 @@ import { PokerGameResultsModule } from './poker-game-results/poker-game-results.
     PlayingCardListModule,
     PokerGameModule,
     PokerGameResultsModule,
+    PokerHomeModule,
   ],
   exports: [
     PlayingCardModule,
     PlayingCardListModule,
     PokerGameModule,
     PokerGameResultsModule,
+    PokerHomeModule,
   ]
 })
 export class ComponentsModule { }
