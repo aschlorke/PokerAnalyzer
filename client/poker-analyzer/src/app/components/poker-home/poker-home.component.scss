@@ -1,7 +1,12 @@
 .header {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+
+    .title {
+        font-size: xx-large;
+        text-align: center;
+    }
 
     .game-options {
         display: flex;

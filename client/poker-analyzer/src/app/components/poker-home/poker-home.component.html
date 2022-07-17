@@ -1,8 +1,8 @@
 <ng-container>
     <div class="header">
-        <button (click)="startNewGame()">Start New Game</button>
-        <div class="title">Poker Analyzer</div>
-        <div class="game-options">
+        <button class="header-child" (click)="startNewGame()">Start New Game</button>
+        <div class="title header-child">Poker Analyzer</div>
+        <div class="game-options header-child">
             <div class="game-selection">
                 <div class="select-title">Selecting existing game: </div>
                 <select class="select" [ngModel]="selectedGameId" (ngModelChange)="selectExistingGame($event)">
