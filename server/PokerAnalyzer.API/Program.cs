@@ -9,6 +9,8 @@ builder.Services.AddControllers ();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer ();
 builder.Services.AddSwaggerGen ();
+
+// TODO: don't allow any and all requests to come through.
 builder.Services.AddCors (o => o.AddPolicy("Cors", builder =>
 {
     builder.AllowAnyHeader()
@@ -27,8 +29,6 @@ if (app.Environment.IsDevelopment ())
 }
 
 app.UseCors ("Cors");
-
-app.UseHttpsRedirection ();
 
 app.UseAuthorization ();
 

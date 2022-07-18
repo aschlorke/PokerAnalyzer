@@ -1,6 +1,6 @@
 # PokerAnalyzer
 
-This is a basic application that uses an Angular client and a .NET API server to deal poker hands and determine the winner for each round. It is a sample application created in order to show integration between Angular and a .NET API. The client uses ngrx to manage the state of the application in order to allow components to easily get the data that they need. It also allows users to retrieve and view existing games, delete existing games, and change the number of players that take part in future games. The server handles creation of the poker games and determining the winner of each game. Players names are static and assigned in the same order every time. Games are stored in memory for this sample application, and will not persist after stopping the API. 
+This is a basic web application that uses an Angular client and a .NET API server to deal poker hands and determine the winner for each round. It is a sample application created in order to show integration between Angular and a .NET API. The client uses ngrx to manage the state of the application in order to allow components to easily get the data that they need. It also allows users to retrieve and view existing games, delete existing games, and change the number of players that take part in future games. The server handles creation of the poker games and determining the winner of each game. Players names are static and assigned in the same order every time. Games are stored in memory for this sample application, and will not persist after stopping the API. Google Chrome was used for testing the application, and should be used to verify it as well.
 
 ---
 ## Installation
@@ -61,6 +61,8 @@ dotnet run
 
 This will start the API, which can be accessed at https://localhost:7245. Documentation for the API can be accessed at https://localhost:7245/swagger/index.html.
 
+Note: The server can also be restored, built, and run in Visual Studio by opening the server PokerAnalyzer.sln file found directly in the server directory.
+
 ---
 ## Using the Application
 ---
@@ -90,3 +92,4 @@ The application has the following issues due to time constraints:
 - UI Design is not very intuitive
 - Errors on the UI and in communicating with the server are logged in the client's console, but not shown anywhere in the UI.
 - At minimum, unit tests for determining the Poker Game winner should be written to ensure that all edge cases are covered.
+- Use https for communication between website and server. http is used in order to avoid certificate issues.
