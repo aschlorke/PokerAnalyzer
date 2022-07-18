@@ -27,7 +27,7 @@ export class PokerHomeComponentUI implements OnInit {
   @Output() onUpdateNumPlayers: EventEmitter<number> = new EventEmitter();
 
   public selectedGameId: number;
-  public playerOptions: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  public playerOptions: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor() { }
 
