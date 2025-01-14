@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { PokerGame } from '../../../../../poker-analyzer-angular-models/poker-game';
+import { PokerGame } from '../../../../../poker-analyzer-models/poker-game';
 import { AppState } from '../../app-state';
 import {
   GetExistingIds,

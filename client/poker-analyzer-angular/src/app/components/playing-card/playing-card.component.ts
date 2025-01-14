@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PlayingCard } from '../../../../../poker-analyzer-angular-models/playing-card';
-import { Suit } from '../../../../../poker-analyzer-angular-models/enums/suit.enum';
+import { PlayingCard } from '../../../../../poker-analyzer-models/playing-card';
+import { Suit } from '../../../../../poker-analyzer-models/enums/suit.enum';
 
 @Component({
   selector: 'app-playing-card',

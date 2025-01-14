@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PokerGame } from '../../../../../poker-analyzer-angular-models/poker-game';
+import { PokerGame } from '../../../../../poker-analyzer-models/poker-game';
 
 @Component({
   selector: 'app-poker-home-ui',

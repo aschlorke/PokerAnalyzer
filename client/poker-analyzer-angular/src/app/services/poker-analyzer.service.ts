@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PokerGame } from '../../../../poker-analyzer-angular-models/poker-game';
+import { PokerGame } from '../../../../poker-analyzer-models/poker-game';
 
 const controllerName: string = 'PokerAnalyzer';
 

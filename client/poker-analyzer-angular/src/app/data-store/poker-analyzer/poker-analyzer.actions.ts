@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PokerGame } from '../../../../../poker-analyzer-angular-models/poker-game';
+import { PokerGame } from '../../../../../poker-analyzer-models/poker-game';
 
 export const SetNumberOfPlayers = createAction(
   '[Poker Analyzer Action] Set Number of Players',
