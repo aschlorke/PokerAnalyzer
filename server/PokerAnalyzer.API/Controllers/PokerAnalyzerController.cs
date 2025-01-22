@@ -4,7 +4,7 @@ using PokerAnalyzer.Data.Models;
 namespace PokerAnalyzer.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("poker-analyzer")]
 public class PokerAnalyzerController : ControllerBase
 {
     private readonly ILogger<PokerAnalyzerController> _logger;
@@ -19,14 +19,14 @@ public class PokerAnalyzerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [HttpPost, Route("GetNewGame")]
+    [HttpPost]
     public ActionResult<PokerGame> GetNewGame([FromBody] NewGameRequest request)
     {
         if (request.NumberOfPlayers < 1 || request.NumberOfPlayers > 10)
         {
             return BadRequest("Number of players must be greater than 1 and less than 10");
         }
-        var game = _service.GetNewGame(request.NumberOfPlayers);
+        var game = _service.CreateGame(request.NumberOfPlayers);
         if (game != null)
         {
             return Ok(game);
@@ -57,6 +57,11 @@ public class PokerAnalyzerController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
         return Ok(game);
+    }
+
+    public ActionResult<List<PokerGame>> GetExistingGames()
+    {
+        return _service.GetExistingGames();
     }
 
 

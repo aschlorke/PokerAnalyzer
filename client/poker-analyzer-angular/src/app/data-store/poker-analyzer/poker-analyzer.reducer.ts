@@ -6,7 +6,7 @@ import {
   select,
 } from '@ngrx/store';
 import * as pokerAnalyzerActions from './poker-analyzer.actions';
-import { PokerGame } from '../../../../../poker-analyzer-models/poker-game';
+import { PokerGame } from '../../../../../shared/poker-analyzer-models/poker-game';
 import { AppState } from '../../app-state';
 
 export const pokerAnalyzerStateKey = 'PokerAnalyzerState';

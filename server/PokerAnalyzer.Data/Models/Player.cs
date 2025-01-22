@@ -1,20 +1,8 @@
-using Newtonsoft.Json;
 
-namespace PokerAnalyzer.Data.Models
+namespace PokerAnalyzer.Data.Models;
+public class Player
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class Player
-    {
-        [JsonProperty]
-        public string Name { get; private set; }
-
-        [JsonProperty]
-        public List<Card> Cards { get; private set; }
-
-        public Player(string name, List<Card> cards)
-        {
-            Name = name;
-            Cards = cards;
-        }
-    }
+    public required string Name { get; init; }
+    
+    public required List<Card> Cards { get; init; }
 }

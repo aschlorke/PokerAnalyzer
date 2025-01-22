@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PokerGame } from '../../../../poker-analyzer-models/poker-game';
+import { PokerGame } from '../../../../shared/poker-analyzer-models/poker-game';
 
-const controllerName: string = 'PokerAnalyzer';
+const controllerName: string = 'poker-analyzer';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +14,9 @@ export class PokerAnalyzerService {
 
   getNewPokerGame(numberOfPlayers: number): Observable<PokerGame | null> {
     return this._http
-      .post<PokerGame>(
-        `${environment.apiEndpoint}/${controllerName}/GetNewGame`,
-        { numberOfPlayers: numberOfPlayers }
-      )
+      .post<PokerGame>(`${environment.apiEndpoint}/${controllerName}/`, {
+        numberOfPlayers: numberOfPlayers,
+      })
       .pipe(
         take(1),
         catchError((err: HttpErrorResponse) => {

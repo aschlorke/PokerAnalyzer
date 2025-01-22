@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PlayingCard } from '../../../../../poker-analyzer-models/playing-card';
+import { PlayingCard } from '../../../../../shared/poker-analyzer-models/playing-card';
 
 @Component({
   selector: 'app-playing-card-list',

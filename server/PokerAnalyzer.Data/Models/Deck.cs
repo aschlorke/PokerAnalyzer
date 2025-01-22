@@ -1,46 +1,45 @@
 using PokerAnalyzer.Common;
 
-namespace PokerAnalyzer.Data.Models
+namespace PokerAnalyzer.Data.Models;
+
+public class Deck
 {
-    public class Deck
+    private List<Card> cards = new();
+    public Deck()
     {
-        private List<Card> cards = new();
-        public Deck()
-        {
-            ResetDeck();
-        }
+        ResetDeck();
+    }
 
-        public void ResetDeck()
-        {
-            cards.Clear();
+    public void ResetDeck()
+    {
+        cards.Clear();
 
-            foreach (var suit in Enum.GetValues(typeof(Suit)).Cast<Suit>().ToList())
+        foreach (var suit in Enum.GetValues(typeof(Suit)).Cast<Suit>().ToList())
+        {
+            foreach (var valueRank in Constants.ValuesToRanks)
             {
-                foreach (var valueRank in Constants.ValuesToRanks)
-                {
-                    cards.Add(new(valueRank.Value, valueRank.Key, suit));
-                }
+                cards.Add(new() {Rank = valueRank.Value, Value = valueRank.Key, Suit = suit});
             }
-
-            ShuffleDeck();
         }
 
-        public Card DrawCard()
+        ShuffleDeck();
+    }
+
+    public Card DrawCard()
+    {
+
+        if (cards.Count < 0)
         {
-
-            if (cards.Count < 0)
-            {
-                // TODO: Throw an error, this should never happen in this example app though
-            }
-            var card = cards.First();
-            cards.RemoveAt(0);
-            return card;
+            // TODO: Throw an error, this should never happen in this example app though
         }
+        var card = cards.First();
+        cards.RemoveAt(0);
+        return card;
+    }
 
-        public void ShuffleDeck()
-        {
-            Random rnd = new();
-            cards = cards.OrderBy(c => rnd.Next()).ToList();
-        }
+    public void ShuffleDeck()
+    {
+        Random rnd = new();
+        cards = cards.OrderBy(c => rnd.Next()).ToList();
     }
 }

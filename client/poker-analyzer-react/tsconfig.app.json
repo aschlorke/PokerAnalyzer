@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../poker-analyzer-models"]
+  "include": ["src", "../shared/poker-analyzer-models"]
 }

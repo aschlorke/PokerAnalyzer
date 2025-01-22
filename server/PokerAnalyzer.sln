@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerAnalyzer.Data", "Poker
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerAnalyzer.Services", "PokerAnalyzer.Services\PokerAnalyzer.Services.csproj", "{8168A765-F675-4594-9A3F-9B8E532B132E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerAnalyzer.Common", "PokerAnalyzer.Common\PokerAnalyzer.Common.csproj", "{460341B1-51DD-428F-B65D-C4D4C33624CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{8168A765-F675-4594-9A3F-9B8E532B132E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8168A765-F675-4594-9A3F-9B8E532B132E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8168A765-F675-4594-9A3F-9B8E532B132E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{460341B1-51DD-428F-B65D-C4D4C33624CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{460341B1-51DD-428F-B65D-C4D4C33624CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{460341B1-51DD-428F-B65D-C4D4C33624CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{460341B1-51DD-428F-B65D-C4D4C33624CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

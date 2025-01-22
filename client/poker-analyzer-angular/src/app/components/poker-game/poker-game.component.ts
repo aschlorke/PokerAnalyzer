@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { PokerGame } from '../../../../../poker-analyzer-models/poker-game';
+import { PokerGame } from '../../../../../shared/poker-analyzer-models/poker-game';
 
 @Component({
   selector: 'app-poker-game',
