@@ -1,7 +1,6 @@
 ﻿using PokerAnalyzer.Data.Models;
 using PokerAnalyzer.Common;
 using PokerAnalyzer.Data.Models.Rules;
-using PokerAnalyzer.Data.Models.Rules.CompositeHandRules;
 using PokerAnalyzer.Data.Models.Rules.Enums;
 
 namespace PokerAnalyzer.Services;
