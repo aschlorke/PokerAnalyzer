@@ -6,8 +6,9 @@ namespace PokerAnalyzer.Data.Models.Rules.CompositeHandRules
     {
         public override string Name => "Full House";
         public override int Value => 8;
-        public FullHouseRule(List<HandRule> compositeRules, HandRule tiebreakingRule) : base(compositeRules, tiebreakingRule)
+        public FullHouseRule(HandRule tiebreakingRule) : base(tiebreakingRule)
         {
+            Rules = [new ThreeOfAKindRule(), new PairRule()];
         }
     }
 }

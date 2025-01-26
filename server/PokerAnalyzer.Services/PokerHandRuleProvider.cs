@@ -13,9 +13,9 @@ public class PokerHandRuleProvider : IPokerHandRuleProvider
         var threeOfAKind = new ThreeOfAKindRule();
         var straight = new StraightRule();
         var flush = new FlushRule();
-        var fullHouse = new FullHouseRule([threeOfAKind, pair], threeOfAKind);
+        var fullHouse = new FullHouseRule(threeOfAKind);
         var fourOfAKind = new FourOfAKindRule();
-        var straightFlush = new StraightFlushRule([straight, flush], straight);
+        var straightFlush = new StraightFlushRule(straight);
 
         return new List<HandRule>() {
             highCard,

@@ -7,9 +7,8 @@ namespace PokerAnalyzer.Data.Models.Rules.CompositeHandRules
         public List<HandRule> Rules { get; protected set; } = new();
         protected HandRule tiebreakingRule = new HighCardRule();
 
-        public CompositeHandRule(List<HandRule> compositeRules, HandRule tiebreakingRule)
+        public CompositeHandRule(HandRule tiebreakingRule)
         {
-            Rules = compositeRules;
             this.tiebreakingRule = tiebreakingRule;
         }
 

@@ -67,7 +67,6 @@ public class PokerAnalyzerService : IPokerAnalyzerService
         }
 
         return game;
-
     }
 
 

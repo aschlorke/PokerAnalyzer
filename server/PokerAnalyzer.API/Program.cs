@@ -1,38 +1,40 @@
+using PokerAnalyzer.Data.Models.Rules;
 using PokerAnalyzer.Services;
 
-var builder = WebApplication.CreateBuilder (args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddSingleton<IPokerAnalyzerService, PokerAnalyzerService> ();
-builder.Services.AddSingleton<IPokerHandRuleProvider, PokerHandRuleProvider> ();
-builder.Services.AddControllers ();
+builder.Services.AddSingleton<IPokerAnalyzerService, PokerAnalyzerService>();
+builder.Services.AddSingleton<IPokerHandRuleProvider, PokerHandRuleProvider>();
+
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer ();
-builder.Services.AddSwaggerGen ();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // TODO: don't allow any and all requests to come through.
-builder.Services.AddCors (o => o.AddPolicy("Cors", builder =>
+builder.Services.AddCors(o => o.AddPolicy("Cors", builder =>
 {
     builder.AllowAnyHeader()
         .AllowAnyOrigin()
         .AllowAnyMethod();
 }));
 
-var app = builder.Build ();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment ())
+if (app.Environment.IsDevelopment())
 {
 
-    app.UseSwagger ();
-    app.UseSwaggerUI ();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseCors ("Cors");
+app.UseCors("Cors");
 
-app.UseAuthorization ();
+app.UseAuthorization();
 
-app.MapControllers ();
+app.MapControllers();
 
-app.Run ();
+app.Run();
