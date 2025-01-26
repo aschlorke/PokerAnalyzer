@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Player } from "../../../shared/poker-analyzer-models/player";
 import { PlayingCardView } from "./playing-card-view.component";
 
@@ -7,7 +8,7 @@ interface Props {
 
 export const PlayerDetails = ({ player }: Props) => {
   return (
-    <div
+    <Box
       style={{
         alignItems: "center",
         display: "flex",
@@ -18,7 +19,7 @@ export const PlayerDetails = ({ player }: Props) => {
     >
       {" "}
       {player.name}
-      <div
+      <Box
         style={{
           display: "flex",
           flexDirection: "row",
@@ -26,14 +27,14 @@ export const PlayerDetails = ({ player }: Props) => {
         }}
       >
         {player.cards.map((c) => (
-          <div
+          <Box
             key={`${c.rank}${c.suit.toString()}`}
             style={{ display: "flex", flex: "1 1 0px", padding: "0.5rem" }}
           >
             <PlayingCardView card={c} />
-          </div>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

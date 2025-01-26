@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Player } from "../../../shared/poker-analyzer-models/player";
 import { PlayerDetails } from "./player-details.component";
 
@@ -7,7 +8,7 @@ interface Props {
 
 export const PlayerDetailsList = ({ players }: Props) => {
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         flexDirection: "row",
@@ -18,6 +19,6 @@ export const PlayerDetailsList = ({ players }: Props) => {
       {players.map((p) => (
         <PlayerDetails key={p.name} player={p} />
       ))}
-    </div>
+    </Box>
   );
 };

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { PokerGameResults } from "../../../shared/poker-analyzer-models/poker-game-results";
 
 interface Props {
@@ -6,8 +7,8 @@ interface Props {
 
 export const GameResultsDetails = ({ results }: Props) => {
   return (
-    <div>
+    <Box>
       {results.winner} wins with {results.winningHand}
-    </div>
+    </Box>
   );
 };

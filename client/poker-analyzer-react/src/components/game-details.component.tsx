@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { PokerGame } from "../../../shared/poker-analyzer-models/poker-game";
 import { GameResultsDetails } from "./game-results-details.component";
 import { PlayerDetailsList } from "./player-details-list.component";
@@ -8,33 +9,33 @@ interface Props {
 
 export const GameDetails = ({ game }: Props) => {
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         flexDirection: "column",
         padding: "1rem",
       }}
     >
-      <div
+      <Box
         style={{
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <div style={{ display: "flex", fontWeight: 500 }}>
+        <Box style={{ display: "flex", fontWeight: 500 }}>
           Game ID: {game.id}
-        </div>
-        <div
+        </Box>
+        <Box
           style={{
             display: "flex",
             flexDirection: "row",
           }}
         >
-          <div style={{ paddingRight: "0.5rem" }}>Results: </div>
+          <Box style={{ paddingRight: "0.5rem" }}>Results: </Box>
           <GameResultsDetails results={game.results} />
-        </div>
-      </div>
-      <div
+        </Box>
+      </Box>
+      <Box
         style={{
           display: "flex",
           flexDirection: "row",
@@ -43,7 +44,7 @@ export const GameDetails = ({ game }: Props) => {
         }}
       >
         <PlayerDetailsList players={game.players} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

@@ -59,6 +59,7 @@ public class PokerAnalyzerController : ControllerBase
         return Ok(game);
     }
 
+    [HttpGet]
     public ActionResult<List<PokerGame>> GetExistingGames()
     {
         return _service.GetExistingGames();

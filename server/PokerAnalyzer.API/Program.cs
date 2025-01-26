@@ -1,9 +1,9 @@
-using PokerAnalyzer.Data.Models.Rules;
 using PokerAnalyzer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<IPokerAnalyzerService, PokerAnalyzerService>();
 builder.Services.AddSingleton<IPokerHandRuleProvider, PokerHandRuleProvider>();
