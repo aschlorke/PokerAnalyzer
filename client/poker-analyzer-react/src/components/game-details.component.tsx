@@ -23,7 +23,7 @@ export const GameDetails = ({ game }: Props) => {
         }}
       >
         <Box style={{ display: "flex", fontWeight: 500 }}>
-          Game ID: {game.id}
+          Game ID: {game.pokerGameId}
         </Box>
         <Box
           style={{

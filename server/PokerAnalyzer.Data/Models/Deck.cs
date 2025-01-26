@@ -5,20 +5,22 @@ namespace PokerAnalyzer.Data.Models;
 public class Deck
 {
     private List<Card> cards = new();
+    Random rnd = new();
     public Deck()
     {
         ResetDeck();
     }
 
-    public void ResetDeck()
+    public void ResetDeck(int? seed = null)
     {
+        rnd = seed == null ? new Random() : new Random(seed.Value);
         cards.Clear();
 
         foreach (var suit in Enum.GetValues(typeof(Suit)).Cast<Suit>().ToList())
         {
             foreach (var valueRank in Constants.ValuesToRanks)
             {
-                cards.Add(new() {Rank = valueRank.Value, Value = valueRank.Key, Suit = suit});
+                cards.Add(new() { Rank = valueRank.Value, Value = valueRank.Key, Suit = suit });
             }
         }
 
@@ -30,7 +32,7 @@ public class Deck
 
         if (cards.Count < 0)
         {
-            // TODO: Throw an error, this should never happen in this example app though
+            throw new InvalidOperationException("Attempted to call DrawCard on an empty deck!");
         }
         var card = cards.First();
         cards.RemoveAt(0);
@@ -39,7 +41,6 @@ public class Deck
 
     public void ShuffleDeck()
     {
-        Random rnd = new();
         cards = cards.OrderBy(c => rnd.Next()).ToList();
     }
 }

@@ -52,7 +52,7 @@ export const Home = () => {
         </TextField>
       </Stack>
       {games?.map((game) => (
-        <GameDetails key={game.id} game={game} />
+        <GameDetails key={game.pokerGameId} game={game} />
       ))}
     </Box>
   );

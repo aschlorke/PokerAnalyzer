@@ -8,12 +8,14 @@ export const gamesApi = pokerAnalyzerApi.injectEndpoints({
     getGameById: builder.query<PokerGame, number>({
       query: (id) => ({ url: `/poker-analyzer/${id.toString()}` }),
       providesTags: (result) =>
-        result === undefined ? [] : [{ type: TagTypes.games, id: result.id }],
+        result === undefined
+          ? []
+          : [{ type: TagTypes.games, id: result.pokerGameId }],
     }),
     getGames: builder.query<PokerGame[], void>({
       query: () => ({ url: "/poker-analyzer/" }),
       providesTags: (result) =>
-        providesList(result, (r) => r.id, TagTypes.games),
+        providesList(result, (r) => r.pokerGameId, TagTypes.games),
     }),
     addGame: builder.mutation<PokerGame, number>({
       query: (numberOfPlayers) => ({
@@ -24,7 +26,7 @@ export const gamesApi = pokerAnalyzerApi.injectEndpoints({
       invalidatesTags: (result) =>
         providesList(
           result === undefined ? result : [result],
-          (r) => r.id,
+          (r) => r.pokerGameId,
           TagTypes.games
         ),
     }),

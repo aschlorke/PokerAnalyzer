@@ -1,29 +1,79 @@
-﻿using PokerAnalyzer.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PokerAnalyzer.Data.Models;
 using PokerAnalyzer.Common;
 using PokerAnalyzer.Data.Models.Rules;
 using PokerAnalyzer.Data.Models.Rules.Enums;
+using PokerAnalyzer.Data.Context;
 
 namespace PokerAnalyzer.Services;
 public class PokerAnalyzerService : IPokerAnalyzerService
 {
     private readonly IPokerHandRuleProvider _pokerHandRuleProvider;
-    private readonly Dictionary<int, PokerGame> _games = new();
+    private readonly PokerAnalyzerContext _context;
 
-    private static int _id = 0;
     private readonly Deck _deck = new();
 
-    public PokerAnalyzerService(IPokerHandRuleProvider pokerHandRuleProvider)
+    public PokerAnalyzerService(IPokerHandRuleProvider pokerHandRuleProvider, PokerAnalyzerContext context)
     {
         _pokerHandRuleProvider = pokerHandRuleProvider;
+        _context = context;
     }
 
-    public PokerGame? CreateGame(int numberOfPlayers) => CreateGameInternal(numberOfPlayers);
+    public async Task<PokerGame?> CreateGame(int numberOfPlayers)
+    {
+        var game = CreateGameInternal(numberOfPlayers);
+        if (game is null) return game;
 
-    public PokerGame GetExistingGameById(int id) => _games[id];
-    public List<PokerGame> GetExistingGames() => _games.Values.ToList();
-    public List<int> GetExistingGameIds() => _games.Keys.ToList();
+        _context.PokerGames.Add(game);
+        await _context.SaveChangesAsync();
 
-    public bool DeleteGameById(int id) => _games.Remove(id);
+        return game;
+    }
+
+    // TODO: Don't actually store the results in the DB, but rather calculate them after fetching the game
+    public async Task<PokerGame> GetExistingGameById(int id)
+    {
+        var game = await _context.PokerGames
+            .Include(pg => pg.Players)
+            .ThenInclude(p => p.Cards)
+            .FirstAsync(pg => pg.PokerGameId == id);
+
+        // Directly setting the result property is a bit of a stop gap from a refactor where the results were computed on game instantiation.
+        game.Results = game.DetermineResults(_pokerHandRuleProvider.GetRules().ToList());
+        return game;
+    }
+
+    public async Task<List<PokerGame>> GetExistingGames()
+    {
+        // Typically, just returning the entire db set would not be ideal. This set is expected to be small however, and is acceptable.
+        var games = await _context.PokerGames
+            .Include(pg => pg.Players)
+            .ThenInclude(p => p.Cards)
+            .ToListAsync();
+
+        foreach (var game in games)
+        {
+            game.Results = game.DetermineResults(_pokerHandRuleProvider.GetRules().ToList());
+        }
+        return games;
+    }
+
+    public async Task<List<int>> GetExistingGameIds()
+    {
+        return await _context.PokerGames.Select(pg => pg.PokerGameId).ToListAsync();
+    }
+
+    public async Task<bool> DeleteGameById(int id)
+    {
+        var found = await _context.PokerGames.FindAsync(id);
+        if (found is not null)
+        {
+            _context.PokerGames.Remove(found);
+            await _context.SaveChangesAsync();
+        }
+
+        return found is not null;
+    }
 
 
     // These private methods should have a better home.
@@ -32,7 +82,7 @@ public class PokerAnalyzerService : IPokerAnalyzerService
         _deck.ResetDeck();
         Dictionary<string, List<Card>> players = new();
 
-        PokerGame? game = null;
+        PokerGame? game;
         try
         {
             // deal cards one by one to each player
@@ -48,101 +98,20 @@ public class PokerAnalyzerService : IPokerAnalyzerService
                     }
                     else
                     {
-                        players.Add(player, new() { card });
+                        players.Add(player, [card]);
                     }
                 }
             }
 
-            var playersList = players.Select(p => new Player() { Name = p.Key, Cards = p.Value.OrderBy(c => c.Value).ToList()} ).ToList();
-            var results = DetermineResults(playersList);
+            var playersList = players.Select(p => new Player() { Name = p.Key, Cards = p.Value.OrderBy(c => c.Value).ToList() }).ToList();
 
-            game = new() { Id = _id, Players = playersList, Results = results };
-            _games.Add(_id, game);
-
-            _id++;
+            game = new PokerGame { Players = playersList };
         }
-        catch (ArgumentOutOfRangeException _)
+        catch (ArgumentOutOfRangeException)
         {
             game = null;
         }
 
         return game;
-    }
-
-
-    private PokerGameResults DetermineResults(IList<Player> players)
-    {
-        Dictionary<Player, HandRule> handResults = new();
-
-        foreach (var player in players)
-        {
-            foreach (var rule in _pokerHandRuleProvider.GetRules())
-            {
-                if (rule.HasHand(player.Cards))
-                {
-                    handResults.Add(player, rule);
-                    break;
-                }
-            }
-        }
-        var maxScore = handResults.Values.Select(r => r.Value).Max();
-        var tiedPlayers = handResults.Where(kvp => kvp.Value.Value == maxScore).Select(kvp => kvp.Key).ToList();
-        if (tiedPlayers.Count() > 1)
-        {
-            return DetermineResultsFromTies(tiedPlayers, handResults[tiedPlayers[0]]);
-        }
-        else if (tiedPlayers.Count() == 1)
-        {
-            var winner = tiedPlayers[0];
-            return new() {Winner = winner.Name, WinningHand = handResults[winner].Name};
-        }
-        else
-        {
-            return new() {Winner = "Draw", WinningHand = "There was a draw"};
-        }
-
-    }
-    private PokerGameResults DetermineResultsFromTies(List<Player> playersToCheck, HandRule tiedRule)
-    {
-        Player winningPlayer = playersToCheck[0];
-        HashSet<Player> tiedPlayers = new();
-
-        // check if any players have matching results
-        // tie break for all players; assume first player is in the lead first
-        for (int i = 1; i < playersToCheck.Count; i++)
-        {
-            var tempWinner = FindWinnerForRule(winningPlayer, playersToCheck[i], tiedRule);
-            if (tempWinner == null)
-            {
-                tempWinner = FindWinnerForRule(winningPlayer, playersToCheck[i], new HighCardRule());
-
-                if (tempWinner == null)
-                {
-                    tiedPlayers.Add(winningPlayer);
-                    tiedPlayers.Add(playersToCheck[i]);
-                }
-            }
-
-            if (tempWinner != null) winningPlayer = tempWinner;
-        }
-
-        // if after checking everything there is still a tie, just set the
-        // winner to "Draw"
-        if (winningPlayer != null && !tiedPlayers.Contains(winningPlayer))
-        {
-            return new() { Winner = winningPlayer.Name, WinningHand = tiedRule.Name};
-        }
-        else
-        {
-            return new() {Winner = "Draw", WinningHand = "Both hands were the same"};
-        }
-    }
-
-    private Player? FindWinnerForRule(Player player1, Player player2, HandRule rule)
-    {
-        var result = rule.TieBreaker(player1.Cards, player2.Cards);
-        if (result == TieBreakerResults.FirstWins) return player1;
-        else if (result == TieBreakerResults.SecondWins) return player2;
-        return null;
     }
 }
