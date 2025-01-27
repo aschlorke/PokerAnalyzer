@@ -4,5 +4,5 @@ import { PokerGameResults } from "./poker-game-results";
 export interface PokerGame {
   pokerGameId: number;
   players: Player[];
-  results: PokerGameResults;
+  results: PokerGameResults | null;
 }

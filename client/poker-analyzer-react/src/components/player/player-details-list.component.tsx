@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Player } from "../../../shared/poker-analyzer-models/player";
+import { Player } from "../../../../shared/poker-analyzer-models/player";
 import { PlayerDetails } from "./player-details.component";
 
 interface Props {

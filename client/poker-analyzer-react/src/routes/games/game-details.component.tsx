@@ -1,13 +1,17 @@
 import { Box } from "@mui/material";
-import { PokerGame } from "../../../shared/poker-analyzer-models/poker-game";
-import { GameResultsDetails } from "./game-results-details.component";
-import { PlayerDetailsList } from "./player-details-list.component";
+import { GameResultsDetails } from "../../components/game/game-results-details.component";
+import { PlayerDetailsList } from "../../components/player/player-details-list.component";
+import { useParams } from "react-router";
+import { useGetGameByIdQuery } from "../../api/games/games.api";
+import { skipToken } from "@reduxjs/toolkit/query";
 
-interface Props {
-  game: PokerGame;
-}
+export const GameDetails = () => {
+  const { gameId } = useParams<{ gameId: string }>();
+  const parsedId = gameId !== undefined ? parseInt(gameId) : undefined;
+  const { currentData: game } = useGetGameByIdQuery(parsedId ?? skipToken);
 
-export const GameDetails = ({ game }: Props) => {
+  if (game === undefined) return null;
+
   return (
     <Box
       style={{
@@ -32,7 +36,9 @@ export const GameDetails = ({ game }: Props) => {
           }}
         >
           <Box style={{ paddingRight: "0.5rem" }}>Results: </Box>
-          <GameResultsDetails results={game.results} />
+          {game.results !== null && (
+            <GameResultsDetails results={game.results} />
+          )}
         </Box>
       </Box>
       <Box

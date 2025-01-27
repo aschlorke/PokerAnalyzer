@@ -1,5 +1,5 @@
-import { PlayingCard } from "../../../shared/poker-analyzer-models/playing-card";
-import { getImagePath } from "../utils/playing-card.utils";
+import { PlayingCard } from "../../../../shared/poker-analyzer-models/playing-card";
+import { getImagePath } from "../../utils/playing-card.utils";
 
 interface Props {
   card: PlayingCard;
