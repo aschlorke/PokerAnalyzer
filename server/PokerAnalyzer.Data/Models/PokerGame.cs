@@ -10,7 +10,7 @@ public class PokerGame
 
 
     public required List<Player> Players { get; init; }
-    
+
 }
 
 public static class PokerGameExtensions
@@ -93,7 +93,5 @@ public static class PokerGameExtensions
             _ => null
         };
     }
-
-
 }
 
