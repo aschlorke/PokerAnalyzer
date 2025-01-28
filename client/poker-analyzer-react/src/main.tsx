@@ -9,8 +9,8 @@ import { theme } from "./components/theme.component.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Root } from "./routes/root.tsx";
 import ErrorPage from "./components/error-boundary.component.tsx";
-import { GameManagement } from "./routes/games/game-management.tsx";
-import { GameDetails } from "./routes/games/game-details.component.tsx";
+import { GameManagementPage } from "./routes/games/game-management.page.tsx";
+import { GameDetailsPage } from "./routes/games/game-details.page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,12 +20,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "games/",
-        element: <GameManagement />,
+        element: <GameManagementPage />,
         errorElement: <ErrorPage />,
       },
       {
         path: "games/:gameId",
-        element: <GameDetails />,
+        element: <GameDetailsPage />,
         errorElement: <ErrorPage />,
       },
     ],

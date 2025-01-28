@@ -1,15 +1,14 @@
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
-import { NavLink } from "react-router";
 import {
   useAddGameMutation,
   useGetGamesQuery,
 } from "../../api/games/games.api";
 import { useState, useCallback } from "react";
-import { GameSummary } from "../../components/game/game-summary.component";
+import { GameList } from "../../components/game/game-list.component";
 
 const ValidNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
-export const GameManagement = () => {
+export const GameManagementPage = () => {
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>(
     ValidNumberOfPlayers[0]
   );
@@ -43,24 +42,7 @@ export const GameManagement = () => {
         </TextField>
       </Stack>
 
-      {games !== undefined && (
-        <Stack spacing={1}>
-          {games.map((game) => (
-            <GameSummary
-              key={game.pokerGameId}
-              game={game}
-              renderTitleComponent={(title) => (
-                <NavLink
-                  style={{ width: "fit-content" }}
-                  to={game.pokerGameId.toString()}
-                >
-                  {title}
-                </NavLink>
-              )}
-            />
-          ))}
-        </Stack>
-      )}
+      {games !== undefined && <GameList games={games} />}
     </>
   );
 };

@@ -20,7 +20,7 @@ public class Deck
         {
             foreach (var valueRank in Constants.ValuesToRanks)
             {
-                cards.Add(new() { Rank = valueRank.Value, Value = valueRank.Key, Suit = suit });
+                cards.Add(new(valueRank.Value, valueRank.Key, suit));
             }
         }
 

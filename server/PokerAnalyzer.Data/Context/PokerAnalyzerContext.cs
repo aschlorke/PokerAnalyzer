@@ -25,16 +25,16 @@ public class PokerAnalyzerContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Card>(b =>
-        {
-            b.HasKey(c => c.CardId);
-            b.Property(c => c.CardId).ValueGeneratedOnAdd();
-        });
-
         modelBuilder.Entity<Player>(b =>
         {
             b.HasKey(p => p.PlayerId);
             b.Property(p => p.PlayerId).ValueGeneratedOnAdd();
+            b.OwnsMany(p => p.Cards, a =>
+            {
+                a.WithOwner().HasForeignKey("PlayerId");
+                a.Property<int>("CardId");
+                a.HasKey("CardId");
+            });
         });
         modelBuilder.Entity<PokerGame>(b =>
         {
