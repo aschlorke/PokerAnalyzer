@@ -1,5 +1,6 @@
 using PokerAnalyzer.Data.Models.Rules;
 using PokerAnalyzer.Data.Models.Rules.CompositeHandRules;
+using PokerAnalyzer.Services.Interfaces;
 
 namespace PokerAnalyzer.Services;
 

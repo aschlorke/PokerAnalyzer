@@ -1,16 +1,24 @@
+using PokerAnalyzer.API.Converters;
 using PokerAnalyzer.Data.Context;
+using PokerAnalyzer.Data.Models;
 using PokerAnalyzer.Services;
+using PokerAnalyzer.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IPokerAnalyzerService, PokerAnalyzerService>();
+builder.Services.AddScoped<IPokerGameService, PokerGameService>();
+builder.Services.AddScoped<IPokerPlayerService, PokerPlayerService>();
 builder.Services.AddScoped<IPokerHandRuleProvider, PokerHandRuleProvider>();
 builder.Services.AddScoped<PokerAnalyzerContext>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.Converters.Add(new ITypedKeyConverter<PlayerId>());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

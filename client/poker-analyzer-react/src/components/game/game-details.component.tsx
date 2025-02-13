@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { PokerGame } from "../../../../shared/poker-analyzer-models/poker-game";
-import { PlayerDetailsList } from "../player/player-details-list.component";
+import { PokerHandList } from "../poker-hands/poker-hand-list.component";
 import { GameResultsDetails } from "./game-results-details.component";
 
 interface Props {
@@ -45,7 +45,7 @@ export const GameDetails = ({ game }: Props) => {
           paddingTop: 0,
         }}
       >
-        <PlayerDetailsList players={game.players} />
+        <PokerHandList pokerHands={game.pokerHands} />
       </Box>
     </Box>
   );

@@ -1,8 +1,8 @@
-import { Player } from "./player";
+import { PokerHand } from "./poker-player";
 import { PokerGameResults } from "./poker-game-results";
 
 export interface PokerGame {
   pokerGameId: number;
-  players: Player[];
+  pokerHands: PokerHand[];
   results: PokerGameResults | null;
 }

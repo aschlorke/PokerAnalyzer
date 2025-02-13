@@ -1,12 +1,18 @@
 import { Box } from "@mui/material";
-import { Player } from "../../../../shared/poker-analyzer-models/player";
+import { PokerHand } from "../../../../shared/poker-analyzer-models/poker-player";
 import { PlayingCardList } from "../playing-card/playing-card-list.component";
+import { useGetPlayerByIdQuery } from "../../api/games/player.api";
 
 interface Props {
-  player: Player;
+  pokerHand: PokerHand;
 }
 
-export const PlayerDetails = ({ player }: Props) => {
+export const PokerHandDetails = ({ pokerHand }: Props) => {
+  const { currentData: player, isLoading } = useGetPlayerByIdQuery(
+    pokerHand.playerId
+  );
+
+  if (isLoading) return null;
   return (
     <Box
       style={{
@@ -18,7 +24,7 @@ export const PlayerDetails = ({ player }: Props) => {
       }}
     >
       {" "}
-      {player.name}
+      {player?.name}
       <Box
         style={{
           display: "flex",
@@ -26,7 +32,7 @@ export const PlayerDetails = ({ player }: Props) => {
           padding: "1rem",
         }}
       >
-        <PlayingCardList cards={player.cards} />
+        <PlayingCardList cards={pokerHand.cards} />
       </Box>
     </Box>
   );

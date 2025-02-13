@@ -1,6 +1,7 @@
 import { Divider, Stack, Typography } from "@mui/material";
 import { PokerGame } from "../../../../shared/poker-analyzer-models/poker-game";
 import { ReactNode } from "react";
+import { useGetPlayersByGameIdQuery } from "../../api/games/player.api";
 
 interface Props {
   game: PokerGame;
@@ -8,6 +9,12 @@ interface Props {
 }
 
 export const GameSummary = ({ game, renderTitleComponent }: Props) => {
+  const { currentData: players, isLoading } = useGetPlayersByGameIdQuery(
+    game.pokerGameId
+  );
+
+  if (isLoading) return null;
+
   const titleComponent = renderTitleComponent?.(
     `Game ID: ${game.pokerGameId.toString()}`
   ) ?? <Typography>Game ID: {game.pokerGameId}</Typography>;
@@ -20,10 +27,13 @@ export const GameSummary = ({ game, renderTitleComponent }: Props) => {
       flexDirection="row"
     >
       {titleComponent}
-      <Typography>{game.players.map((p) => p.name).join(", ")}</Typography>
+      <Typography>{players?.map((p) => p.name).join(", ")}</Typography>
       {game.results !== null && (
         <>
-          <Typography>{game.results.winner} won the game!</Typography>
+          <Typography>
+            {players?.find((p) => p.playerId === game.results?.winner)?.name}{" "}
+            won the game!
+          </Typography>
         </>
       )}
     </Stack>

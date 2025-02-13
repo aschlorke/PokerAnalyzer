@@ -1,9 +1,3 @@
-public class NewGameRequest
-{
-    public int NumberOfPlayers { get; private set; }
+namespace PokerAnalyzer.API.Requests;
 
-    public NewGameRequest (int numberOfPlayers)
-    {
-        NumberOfPlayers = numberOfPlayers;
-    }
-}
+public record NewGameRequest(int NumberOfPlayers);

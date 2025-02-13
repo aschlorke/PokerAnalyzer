@@ -1,6 +1,6 @@
 using PokerAnalyzer.Data.Models.Rules;
 
-namespace PokerAnalyzer.Services;
+namespace PokerAnalyzer.Services.Interfaces;
 
 public interface IPokerHandRuleProvider
 {

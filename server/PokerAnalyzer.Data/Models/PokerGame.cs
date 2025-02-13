@@ -5,21 +5,23 @@ namespace PokerAnalyzer.Data.Models;
 
 public class PokerGame
 {
-    public int PokerGameId { get; private set; }
+    public int PokerGameId { get; init; }
+
+    public required List<PokerHand> PokerHands { get; init; }
+}
+
+public class PokerGameWithResults : PokerGame
+{
     public PokerGameResults? Results { get; set; }
-
-
-    public required List<Player> Players { get; init; }
-
 }
 
 public static class PokerGameExtensions
 {
     public static PokerGameResults DetermineResults(this PokerGame game, List<HandRule> handRules)
     {
-        Dictionary<Player, HandRule> handResults = new();
+        Dictionary<PokerHand, HandRule> handResults = new();
 
-        foreach (var player in game.Players)
+        foreach (var player in game.PokerHands)
         {
             foreach (var rule in handRules)
             {
@@ -39,18 +41,18 @@ public static class PokerGameExtensions
         else if (tiedPlayers.Count() == 1)
         {
             var winner = tiedPlayers[0];
-            return new() { Winner = winner.Name, WinningHand = handResults[winner].Name };
+            return new() { Winner = winner.PlayerId, WinningHand = handResults[winner].Name };
         }
         else
         {
-            return new() { Winner = "Draw", WinningHand = "There was a draw" };
+            return new() { Winner = PlayerId.Empty, WinningHand = "There was a draw" };
         }
 
     }
-    private static PokerGameResults DetermineResultsFromTies(List<Player> playersToCheck, HandRule tiedRule)
+    private static PokerGameResults DetermineResultsFromTies(List<PokerHand> playersToCheck, HandRule tiedRule)
     {
-        Player winningPlayer = playersToCheck[0];
-        HashSet<Player> tiedPlayers = new();
+        PokerHand winningPlayer = playersToCheck[0];
+        HashSet<PokerHand> tiedPlayers = new();
 
         // check if any players have matching results
         // tie break for all players; assume first player is in the lead first
@@ -75,15 +77,15 @@ public static class PokerGameExtensions
         // winner to "Draw"
         if (tiedPlayers.Contains(winningPlayer))
         {
-            return new() { Winner = "Draw", WinningHand = "Both hands were the same" };
+            return new() { Winner = PlayerId.Empty, WinningHand = "Both hands were the same" };
         }
         else
         {
-            return new() { Winner = winningPlayer.Name, WinningHand = tiedRule.Name };
+            return new() { Winner = winningPlayer.PlayerId, WinningHand = tiedRule.Name };
         }
     }
 
-    private static Player? FindWinnerForRule(Player player1, Player player2, HandRule rule)
+    private static PokerHand? FindWinnerForRule(PokerHand player1, PokerHand player2, HandRule rule)
     {
         var result = rule.TieBreaker(player1.Cards, player2.Cards);
         return result switch

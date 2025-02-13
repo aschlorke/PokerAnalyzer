@@ -1,24 +1,41 @@
-import { Button, MenuItem, Stack, TextField } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  Stack,
+} from "@mui/material";
 import {
   useAddGameMutation,
   useGetGamesQuery,
 } from "../../api/games/games.api";
 import { useState, useCallback } from "react";
 import { GameList } from "../../components/game/game-list.component";
-
-const ValidNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+import { useGetPlayersQuery } from "../../api/games/player.api";
+import { PlayerId } from "../../../../shared/poker-analyzer-models/types/Keys";
 
 export const GameManagementPage = () => {
-  const [numberOfPlayers, setNumberOfPlayers] = useState<number>(
-    ValidNumberOfPlayers[0]
-  );
+  const [selectedPlayers, setSelectedPlayers] = useState<PlayerId[]>([]);
+
+  const { currentData: players } = useGetPlayersQuery();
 
   const { currentData: games } = useGetGamesQuery();
+
   const [addGame] = useAddGameMutation();
 
   const onClick = useCallback(() => {
-    void addGame(numberOfPlayers);
-  }, [addGame, numberOfPlayers]);
+    void addGame({ playerIds: selectedPlayers });
+  }, [addGame, selectedPlayers]);
+
+  const handleChange = (event: SelectChangeEvent<PlayerId[]>) => {
+    if (!Array.isArray(event.target.value)) return;
+    setSelectedPlayers(event.target.value);
+  };
 
   return (
     <>
@@ -26,20 +43,25 @@ export const GameManagementPage = () => {
         <Button variant="contained" onClick={() => onClick()}>
           Add new game
         </Button>
-        <TextField
-          select
-          fullWidth
-          label="Number of Players"
-          variant="filled"
-          value={numberOfPlayers}
-          onChange={(e) => setNumberOfPlayers(+e.target.value)}
-        >
-          {ValidNumberOfPlayers.map((i) => (
-            <MenuItem key={i} value={i}>
-              {i}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl sx={{ m: 1, width: 300 }}>
+          <InputLabel id="player-select-label">Players</InputLabel>
+          <Select
+            labelId="player-select-label"
+            id="player-select"
+            multiple
+            value={selectedPlayers}
+            onChange={handleChange}
+            input={<OutlinedInput label="Tag" />}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {players?.map((player) => (
+              <MenuItem key={player.playerId} value={player.playerId}>
+                <Checkbox checked={selectedPlayers.includes(player.playerId)} />
+                <ListItemText primary={player.name} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Stack>
 
       {games !== undefined && <GameList games={games} />}

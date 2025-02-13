@@ -10,5 +10,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#f0f0f0",
+        },
+      },
+    },
   },
 });

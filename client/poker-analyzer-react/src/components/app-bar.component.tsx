@@ -11,6 +11,7 @@ import { NavLink } from "react-router";
 const navItems = [
   { label: "Home", route: "/" },
   { label: "Games", route: "/games" },
+  { label: "Players", route: "/players" },
 ] as const;
 
 export const PokerAppBar = () => {
@@ -29,9 +30,6 @@ export const PokerAppBar = () => {
                     {item.label}
                   </Typography>
                 </NavLink>
-                {/* <ListItemButton sx={{ textAlign: "center" }}>
-                  <ListItemText primary={item} />
-                </ListItemButton> */}
               </ListItem>
             ))}
           </List>{" "}

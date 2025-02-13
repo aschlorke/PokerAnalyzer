@@ -4,12 +4,12 @@ import { catchError, Observable, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PokerGame } from '../../../../shared/poker-analyzer-models/poker-game';
 
-const controllerName: string = 'poker-analyzer';
+const controllerName: string = 'poker-games';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PokerAnalyzerService {
+export class PokerGamesService {
   constructor(private _http: HttpClient) {}
 
   getNewPokerGame(numberOfPlayers: number): Observable<PokerGame | null> {

@@ -11,6 +11,7 @@ import { Root } from "./routes/root.tsx";
 import ErrorPage from "./components/error-boundary.component.tsx";
 import { GameManagementPage } from "./routes/games/game-management.page.tsx";
 import { GameDetailsPage } from "./routes/games/game-details.page.tsx";
+import { PlayerManagementPage } from "./routes/players/player-management.page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "games/:gameId",
         element: <GameDetailsPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "players/",
+        element: <PlayerManagementPage />,
         errorElement: <ErrorPage />,
       },
     ],

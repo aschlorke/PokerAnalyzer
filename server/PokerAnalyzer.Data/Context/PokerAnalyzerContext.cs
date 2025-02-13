@@ -6,6 +6,7 @@ namespace PokerAnalyzer.Data.Context;
 public class PokerAnalyzerContext : DbContext
 {
     public DbSet<PokerGame> PokerGames { get; set; }
+    public DbSet<Player> Players { get; set; }
 
     private string DbPath { get; }
 
@@ -23,27 +24,8 @@ public class PokerAnalyzerContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PokerAnalyzerContext).Assembly);
         base.OnModelCreating(modelBuilder);
-        // TODO: Better normalize this data. Currently, every game creates new players, and cards are created for each player for each game.
-        // While for this small app, space savings may be minimal, we could have a couple of many to many tables that
-        // link player the player table to the games table, and the cards table to the player table. That way, players would only
-        // be unique and tracked across games, as would cards. That would allow for easier tracking of statistics across games
-        modelBuilder.Entity<Player>(b =>
-        {
-            b.HasKey(p => p.PlayerId);
-            b.Property(p => p.PlayerId).ValueGeneratedOnAdd();
-            b.OwnsMany(p => p.Cards, a =>
-            {
-                a.WithOwner().HasForeignKey("PlayerId");
-                a.Property<int>("CardId");
-                a.HasKey("CardId");
-            });
-        });
-        modelBuilder.Entity<PokerGame>(b =>
-        {
-            b.HasKey(p => p.PokerGameId);
-            b.Property(p => p.PokerGameId).ValueGeneratedOnAdd();
-        });
     }
 }
 

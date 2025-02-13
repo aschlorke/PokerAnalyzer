@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PokerAnalyzerService } from './poker-analyzer.service';
+import { PokerGamesService } from './poker-games.service';
 
-describe('PokerAnalyzerService', () => {
-  let service: PokerAnalyzerService;
+describe('PokerGamesService', () => {
+  let service: PokerGamesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PokerAnalyzerService);
+    service = TestBed.inject(PokerGamesService);
   });
 
   it('should be created', () => {

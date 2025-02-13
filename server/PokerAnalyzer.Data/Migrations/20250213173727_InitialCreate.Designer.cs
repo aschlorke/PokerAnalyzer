@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokerAnalyzer.Data.Context;
 
@@ -10,9 +11,11 @@ using PokerAnalyzer.Data.Context;
 namespace PokerAnalyzer.Data.Migrations
 {
     [DbContext(typeof(PokerAnalyzerContext))]
-    partial class PokerAnalyzerContextModelSnapshot : ModelSnapshot
+    [Migration("20250213173727_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");

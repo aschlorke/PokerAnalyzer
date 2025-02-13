@@ -13,7 +13,7 @@ export class PokerHomeComponentUI implements OnInit {
   @Input() set currentGame(val: PokerGame) {
     this._currentGame = val;
     if (val) {
-      this.selectedGameId = val.id;
+      this.selectedGameId = val.pokerGameId;
     }
   }
   get currentGame(): PokerGame | null {
@@ -41,7 +41,7 @@ export class PokerHomeComponentUI implements OnInit {
 
   deleteGame(): void {
     if (this.currentGame) {
-      this.onDeleteGame.emit(this.currentGame.id);
+      this.onDeleteGame.emit(this.currentGame.pokerGameId);
     }
   }
 

@@ -1,10 +1,16 @@
 
 namespace PokerAnalyzer.Data.Models;
+
 public class Player
 {
-    public int PlayerId { get; }
-    public int PokerGameId { get; init; }
+    public required PlayerId PlayerId { get; init; }
     public required string Name { get; init; }
 
-    public required List<Card> Cards { get; init; }
+    public static Player Create(string name) => new() { Name = name, PlayerId = PlayerId.Create() };
+}
+
+public readonly record struct PlayerId(Guid Value) : ITypedKey
+{
+    public static PlayerId Empty => new() { Value = Guid.Empty };
+    public static PlayerId Create() => new() { Value = Guid.CreateVersion7() };
 }

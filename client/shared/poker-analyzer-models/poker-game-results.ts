@@ -1,4 +1,6 @@
+import { PlayerId } from "./types/Keys";
+
 export interface PokerGameResults {
-  winner: string;
+  winner: PlayerId;
   winningHand: string;
 }

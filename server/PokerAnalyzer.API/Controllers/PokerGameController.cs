@@ -1,25 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using PokerAnalyzer.API.Requests;
 using PokerAnalyzer.Data.Models;
-using PokerAnalyzer.Services;
+using PokerAnalyzer.Services.Interfaces;
 
 namespace PokerAnalyzer.API.Controllers;
 
 [ApiController]
-[Route("poker-analyzer")]
-public class PokerAnalyzerController : ControllerBase
+[Route("poker-games")]
+public class PokerGameController : ControllerBase
 {
-    private readonly IPokerAnalyzerService _service;
+    private readonly IPokerGameService _service;
 
-    public PokerAnalyzerController(IPokerAnalyzerService pokerAnalyzerService)
+    public PokerGameController(IPokerGameService service)
     {
-        _service = pokerAnalyzerService;
+        _service = service;
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [HttpPost]
-    public async Task<ActionResult<PokerGame>> GetNewGame([FromBody] NewGameRequest request)
+    public async Task<ActionResult<PokerGameWithResults>> GetNewGame([FromBody] NewGameRequest request)
     {
         if (request.NumberOfPlayers < 1 || request.NumberOfPlayers > 10)
         {
@@ -33,12 +34,23 @@ public class PokerAnalyzerController : ControllerBase
         return StatusCode(StatusCodes.Status500InternalServerError, "Game was unable to be created");
     }
 
+    [HttpPost("with-players")]
+    public async Task<ActionResult<PokerGameWithResults>> CreateGame([FromBody] NewGameWithPlayerIdsRequest request)
+    {
+        var game = await _service.CreateGame(request.PlayerIds);
+        if (game != null)
+        {
+            return Ok(game);
+        }
+        return StatusCode(StatusCodes.Status500InternalServerError, "Game was unable to be created");
+    }
+
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [HttpGet("{id}")]
-    public async Task<ActionResult<PokerGame>> GetExistingGame(int id)
+    public async Task<ActionResult<PokerGameWithResults>> GetExistingGame(int id)
     {
         if (id < 0) return BadRequest("Id of game must be greater than or equal to 0");
 
@@ -59,9 +71,10 @@ public class PokerAnalyzerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<PokerGame>>> GetExistingGames()
+    public async Task<ActionResult<List<PokerGameWithResults>>> GetExistingGames()
     {
-        return await _service.GetExistingGames();
+        var games = await _service.GetExistingGames();
+        return games;
     }
 
 

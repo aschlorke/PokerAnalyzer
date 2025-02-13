@@ -3,7 +3,7 @@ import { axiosBaseQuery } from "./util/axiosBaseQuery.util";
 
 export const TagTypes = {
   games: "games",
-  //   players: "players",
+  players: "players",
 } as const;
 
 export const pokerAnalyzerApi = createApi({

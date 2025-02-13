@@ -1,10 +1,14 @@
 <ng-container *ngIf="!!currentGame">
-    <p>Game Id: {{currentGame.id}}</p>
-    <div class="player-list">
-        <div class="player" *ngFor="let player of currentGame.players">
-            <p class="player-name">{{player.name}}</p>
-            <app-playing-card-list [playingCards]="player.cards"></app-playing-card-list>
-        </div>
+  <p>Game Id: {{ currentGame.pokerGameId }}</p>
+  <div class="player-list">
+    <div class="player" *ngFor="let hand of currentGame.playerHands">
+      <p class="player-name">{{ hand.playerId }}</p>
+      <app-playing-card-list
+        [playingCards]="hand.cards"
+      ></app-playing-card-list>
     </div>
-    <app-poker-game-results [results]="currentGame.results"></app-poker-game-results>
+  </div>
+  <app-poker-game-results
+    [results]="currentGame.results"
+  ></app-poker-game-results>
 </ng-container>
