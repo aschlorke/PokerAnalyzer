@@ -2,12 +2,14 @@ import { Button, Stack } from "@mui/material";
 import { useCallback } from "react";
 import {
   useAddPlayerMutation,
+  useDeletePlayerMutation,
   useGetPlayersQuery,
 } from "../../api/games/player.api";
 
 export const PlayerManagementPage = () => {
   const { currentData: players } = useGetPlayersQuery();
   const [addPlayer] = useAddPlayerMutation();
+  const [deletePlayer] = useDeletePlayerMutation();
 
   const onClick = useCallback(() => {
     void addPlayer({ name: "aaron" });
@@ -22,9 +24,18 @@ export const PlayerManagementPage = () => {
       </Stack>
 
       {players !== undefined && (
+        // Players in general should be fleshed out a lot more
+        // Customizable names/information, etc.
         <>
           {players.map((p) => (
-            <>{p.name}</>
+            <Stack key={p.playerId} spacing={1} flexDirection="column">
+              <>
+                {p.name}{" "}
+                <Button onClick={() => void deletePlayer(p.playerId)}>
+                  Delete
+                </Button>
+              </>
+            </Stack>
           ))}
         </>
       )}

@@ -15,7 +15,7 @@ public class PokerPlayerService(PokerAnalyzerContext context) : IPokerPlayerServ
 
     public async Task<bool> DeletePlayer(PlayerId playerId)
     {
-        var player = context.Players.Find(playerId.Value);
+        var player = context.Players.Find(playerId);
         if (player is not null)
         {
             context.Players.Remove(player);

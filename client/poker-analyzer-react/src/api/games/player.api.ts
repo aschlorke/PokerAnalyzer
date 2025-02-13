@@ -3,7 +3,7 @@ import { PlayerId } from "../../../../shared/poker-analyzer-models/types/Keys";
 import { pokerAnalyzerApi, TagTypes } from "../poker-analyzer.api";
 import { AddPlayerRequest } from "../requests/players.requests";
 import { Method } from "../util/httpMethods.enum";
-import { providesList } from "../util/providesList.util";
+import { CollectionTagId, providesList } from "../util/providesList.util";
 
 const route = "poker-players";
 
@@ -38,10 +38,11 @@ export const playerApi = pokerAnalyzerApi.injectEndpoints({
         ),
     }),
     deletePlayer: builder.mutation<void, PlayerId>({
-      query: (id) => ({ url: `/${route}/${id.toString()}` }),
-      invalidatesTags: (_result, _error, id) => [
-        { type: TagTypes.players, id: id },
-      ],
+      query: (id) => ({
+        url: `/${route}/${id.toString()}`,
+        method: Method.delete,
+      }),
+      invalidatesTags: () => [{ type: TagTypes.players, id: CollectionTagId }],
     }),
   }),
   overrideExisting: "throw",
